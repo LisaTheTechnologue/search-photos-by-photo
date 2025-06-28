@@ -62,6 +62,12 @@ Search photos by an uploaded photo using deepface
 
 - Session 7: Phân loại, Phân nhóm
 
+#### Thêm chức năng tìm kiếm ảnh theo gương mặt:
+
+- Tìm hiểu hàm `represent` của thư viện _deepface_.
+- Dùng hàm `represent` để biểu diễn gương mặt cần tìm & các gương mặt có trong file zip.
+- Tính cosine similarity giữa các gương mặt & hiển thị kết quả.
+
 - Session 8-9-10: Dự báo, vẽ các đồ thị
 
 ### Presentation
