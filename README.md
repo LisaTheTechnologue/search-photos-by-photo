@@ -2,6 +2,8 @@
 
 Search photos by an uploaded photo using deepface
 
+This is the project 6. Demo: https://www.youtube.com/watch?v=1v-49mTu0wE
+
 ## Authors
 
 - [@LisaTheTechnologue](https://www.github.com/LisaTheTechnologue)
@@ -102,3 +104,75 @@ Search photos by an uploaded photo using deepface
 ### Markdown cheatsheet
 
 https://github.com/tchapi/markdown-cheatsheet/blob/master/README.md
+
+### Sample code
+
+#### S3
+
+```python
+def main():
+    st.title('🖼 Image Search')
+    with st.sidebar:
+        uploaded_file = st.file_uploader("Upload Images", type=['zip'])
+
+    if uploaded_file is None:
+        st.text('👈 Please upload your images')
+    else:
+        with st.expander('Source Images'):
+            st.write('List Image')
+        tab1, tab2 = st.tabs(['🙂 Face Search', '📄 Text Search'])
+        with tab1:
+            st.write('Search Face')
+        with tab2:
+            st.write('Search Text')
+```
+
+#### S7
+
+Hàm represent của thư viện deepface để biểu diễn gương mặt cần tìm và các gương mặt có trong file zip
+Tính cosine sim giữa các gương mặt và kết quả
+
+```python
+def read_zip_file(uploaded_file):
+    cols = st.columns(4)
+    with ZipFile(uploaded_file, 'r') as zip:
+        for filename in zip.namelist():
+            if filename.endswith('png') or filename.endswith('jpg') or filename.endswith('jpeg'):
+                with zip.open(filename) as f:
+                    img = Image.open(f)
+                    imgs.append(img)
+                    st.image(img, f'{filename[-20:-4]}')
+```
+
+#### S12
+
+Tìm kiếm ảnh theo text
+
+```python
+def text_search(src_imgs, src_embs):
+  col1, col2 = st.columns(2)
+  with col1:
+  text = st.text_area('Image Description')
+  with col2:
+  min_cosine = st.slider('Level of Similarity (%)', value=30, min_value=10, max_value=100, step=5)
+
+      if len(text) > 0:
+          text_data = processor_text(text)
+          _, text_embedding = model_text.encode(text_data)
+          text_embedding = text_embedding.flatten() / norm(text_embedding)
+          cosine = (src_embs @ text_embedding) * 100
+          ids = np.where(cosine >= min_cosine)[0]
+          if len(ids) == 0:
+              st.info('Not found')
+          else:
+              result = [(cosine[i], i) for i in ids]
+              result.sort(reverse=True)
+
+              j = 0
+              st.success('Result')
+              cols = st.columns(3)
+              for cosine, i in result:
+                  with cols[j % 3]:
+                      st.image(src_imgs[i], f'{round(cosine)}%')
+                  j += 1
+```
