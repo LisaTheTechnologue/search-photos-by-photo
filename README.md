@@ -28,7 +28,19 @@ This is the project 6. Demo: https://www.youtube.com/watch?v=1v-49mTu0wE
 
 ## Features
 
+- Upload 'data.zip' folder: contains all images to search
+
+- First Tab: Image search
+
+- Take photo then search in uploaded data folder by Level of Similarity
+
+- Upload image then search in uploaded data folder by Level of Similarity
+
+- Show 'Result' and list of images OR 'Not Found' if no result
+
 - Compare uploaded photo to image folder
+
+- Second Tab: Text Search
 
 ## Flowchart
 
@@ -63,6 +75,12 @@ This is the project 6. Demo: https://www.youtube.com/watch?v=1v-49mTu0wE
 - Session 5: Tạo dữ liệu
 
 - Session 7: Phân loại, Phân nhóm
+
+4. To run:
+
+- venv\Scripts\activate
+
+- streamline start app.py
 
 #### Thêm chức năng tìm kiếm ảnh theo gương mặt:
 
