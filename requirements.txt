@@ -3,7 +3,6 @@ pandas
 Pillow
 streamlit
 zipfile39
-tf-keras
 uform
 torch 
 torchvision
