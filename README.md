@@ -90,6 +90,96 @@ This is the project 6. Demo: https://www.youtube.com/watch?v=1v-49mTu0wE
 
 - Session 8-9-10: Dự báo, vẽ các đồ thị
 
+## DeepFace
+
+### Method chính
+
+---
+
+#### 🔹 1. `verify(img1, img2)`
+
+- **Chức năng:**
+  So sánh **hai ảnh khuôn mặt** → trả về:
+
+  - `verified` (True/False)
+  - `distance` (khoảng cách giữa hai vector embedding)
+  - `model` dùng để so sánh
+
+- **Ưu điểm:**
+
+  - Dùng trực tiếp khi chỉ muốn so sánh **1 ảnh A với 1 ảnh B**.
+  - Có sẵn logic True/False (cùng người hay khác người).
+
+- **Nhược điểm:**
+
+  - Không phù hợp khi cần so sánh **1 ảnh với nhiều ảnh** (sẽ phải gọi vòng lặp, hơi chậm).
+  - Không lưu lại embedding để dùng lại sau → tốn thời gian nếu ảnh nhiều.
+
+- **Ứng dụng:**
+  Nếu bạn chỉ cần **check một cặp ảnh** thì dùng `verify` là đơn giản nhất.
+
+---
+
+#### 🔹 2. `represent(img)`
+
+- **Chức năng:**
+  Trích xuất **embedding vector** (ví dụ 128D, 512D tùy model).
+
+- **Ưu điểm:**
+
+  - Lấy embedding 1 lần, sau đó so sánh bằng khoảng cách (cosine, euclidean, etc.).
+  - Rất phù hợp cho **search/retrieval** (tìm trong một thư viện ảnh).
+  - Nhanh hơn `verify` nhiều khi số ảnh lớn (vì không phải chạy model nhiều lần).
+
+- **Nhược điểm:**
+
+  - Cần tự viết hàm so sánh (cosine similarity, L2 distance…).
+  - Không trả về “verified=True/False” sẵn.
+
+- **Ứng dụng:**
+  Nếu bạn muốn xây **face search engine** (giống Google Images hoặc FaceNet demo), thì `represent` là lựa chọn chuẩn nhất.
+
+---
+
+#### 🔹 3. `analyze(img)`
+
+- **Chức năng:**
+  Dự đoán thuộc tính khuôn mặt: tuổi, giới tính, cảm xúc, sắc tộc.
+- **Không phù hợp** cho bài toán tìm ảnh giống nhau.
+
+---
+
+#### 🔹 4. `find(img, db_path)`
+
+- **Chức năng:**
+  Cho một ảnh query, tìm ảnh tương đồng nhất trong database (thư mục ảnh).
+- **Ưu điểm:**
+
+  - Tự động load ảnh trong thư mục → không cần code vòng lặp.
+  - Có sẵn cơ chế tìm nearest neighbor.
+
+- **Nhược điểm:**
+
+  - Bị ràng buộc vào DB path → khó tùy biến nếu muốn xử lý ảnh upload tạm thời.
+
+- **Ứng dụng:**
+  Dùng nếu bạn muốn một **công cụ nhanh gọn** để tìm kiếm ảnh trong thư mục.
+
+---
+
+### Có 2 cách:
+
+1. **Nhanh gọn (ít code):** dùng `DeepFace.find(query_img, db_path)`
+   → Tự động tìm ảnh giống trong folder.
+   → Nhưng bất tiện nếu ảnh chỉ nằm trong **Streamlit uploader** chứ không phải folder thật.
+
+2. **Tối ưu & linh hoạt:** dùng `represent`
+
+   - Bước 1: Trích xuất embedding cho tất cả ảnh trong folder **1 lần**.
+   - Bước 2: Trích xuất embedding cho ảnh query.
+   - Bước 3: Tính cosine similarity giữa query và từng ảnh.
+   - Bước 4: Lọc theo slider % Similarity.
+
 ### Presentation
 
 1. Giới thiệu Project
