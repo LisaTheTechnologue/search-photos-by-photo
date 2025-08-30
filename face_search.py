@@ -29,7 +29,11 @@ def face_search(src_imgs):
             st.warning('Face not found', icon='⚠️')
             return
 
-        min_similar = st.slider('Minimum Similarity (%)', value=70, min_value=10, max_value=99, step=5)
+        min_similar = st.slider(
+                        'Minimum Similarity (%)',
+                        value=70, min_value=10, max_value=99, step=5,
+                        key="face_similarity"
+                    )
                 
         with st.spinner("Searching database..."):            
             for i, img in enumerate(src_imgs):

@@ -3,9 +3,8 @@ pandas
 Pillow
 streamlit
 zipfile39
+tf-keras
 uform
-torch 
-torchvision
 hf_xet
 deepface
 scikit-learn

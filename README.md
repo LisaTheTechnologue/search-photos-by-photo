@@ -44,7 +44,7 @@ This is the project 6. Demo: https://www.youtube.com/watch?v=1v-49mTu0wE
 
 ## Flowchart
 
-![flow chart](https://github.com/LisaTheTechnologue/search-photos-by-photo/main/mc4ia-milestone.drawio.png?raw=true)
+![flow chart](https://drive.google.com/file/d/1MJMHZhLHelYpAD4OsQcO00R0m6MQDDaU/view?usp=drive_link)
 
 ## Appendix
 
