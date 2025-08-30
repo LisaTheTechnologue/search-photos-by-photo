@@ -3,6 +3,15 @@ import streamlit as st
 from image_utils import cosine_similarity_np, get_image_embeddings,process_image
 import cv2
 
+@st.cache_resource
+def compute_face_embeddings(src_imgs):
+    embs = []
+    for img in src_imgs:
+        src_img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        src_emb = get_image_embeddings(src_img_cv)
+        embs.append(src_emb)
+    return embs
+
 def face_search(src_imgs):
     st.subheader("Search by Face")
     option = st.radio("Choose input method:", ("Take a picture", "Upload a photo"))
@@ -36,14 +45,14 @@ def face_search(src_imgs):
                     )
                 
         with st.spinner("Searching database..."):            
-            for i, img in enumerate(src_imgs):
-                src_img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-                src_embs = get_image_embeddings(src_img_cv)
-
-                if src_embs is not None:
-                    sim = cosine_similarity_np(src_embs, query_embs) * 100
+            src_embs = compute_face_embeddings(src_imgs)  # gọi cache
+            results = []
+            for i, (src_emb, img) in enumerate(zip(src_embs, src_imgs)):
+                if src_emb is not None:
+                    sim = cosine_similarity_np(src_emb, query_embs) * 100
                     if sim >= min_similar:
                         results.append((sim, img))
+
                             
         if len(results) == 0:
                 st.info("No similar images found.")

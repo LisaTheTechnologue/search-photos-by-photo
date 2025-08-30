@@ -39,6 +39,8 @@ def read_zip_file(uploaded_file):
             for i, filename in enumerate(image_files):
                 with zip.open(filename) as f:
                     img = Image.open(f).convert("RGB")
+
+                    # đọc metadata EXIF và tự động xoay/lật ảnh về đúng chiều.
                     img = ImageOps.exif_transpose(img)
                     imgs.append(img)
                     with cols[i % 4]:
