@@ -2,9 +2,9 @@ numpy
 pandas
 Pillow
 streamlit
-zipfile39
 tf-keras
 uform
 hf_xet
 deepface
 scikit-learn
+tensorflow
