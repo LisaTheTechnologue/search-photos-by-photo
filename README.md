@@ -21,8 +21,15 @@ Xây dựng bằng **Python + Streamlit**, sử dụng hai mô hình AI mạnh m
 
 ---
 
+## Flowchart
+
+![flow chart](https://github.com/LisaTheTechnologue/search-photos-by-photo/blob/main/mc4ia-milestone-Page-2.png)
+
+---
+
 ## 🗂️ Cấu trúc thư mục
 
+```
 .
 ├── app.py # Main Streamlit app (chứa tabs)
 ├── face_search.py # Module cho Face Search
@@ -30,6 +37,8 @@ Xây dựng bằng **Python + Streamlit**, sử dụng hai mô hình AI mạnh m
 ├── image_utils.py # Xử lý ảnh, embeddings, cosine similarity
 ├── requirements.txt # Danh sách thư viện cần cài
 └── README.md # Tài liệu hướng dẫn
+└── HELP.md # Lý thuyết, QA và những thứ liên quan
+```
 
 ---
 
